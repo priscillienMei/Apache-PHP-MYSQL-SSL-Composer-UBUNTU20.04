@@ -5,7 +5,7 @@ sudo apt install apache2 libapache2-mod-fcgid software-properties-common python3
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
 sudo apt install php7.4 php7.4-fpm -y
-sudo a2enmod actions fcgid alias proxy_fcgi
+sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite 
 
 echo "<VirtualHost *:80>
 #ServerName www.example.com
@@ -34,3 +34,6 @@ echo "<VirtualHost *:80>
     CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 " > /etc/apache2/sites-available/000-default.conf
+
+service apache2 restart
+
