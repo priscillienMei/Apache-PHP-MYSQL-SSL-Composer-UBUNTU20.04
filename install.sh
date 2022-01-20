@@ -8,8 +8,8 @@ sudo apt install php7.4 php7.4-fpm -y
 sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite 
 
 echo "<VirtualHost *:80>
-#ServerName www.example.com
-#ServerAlias www.example.com
+    #ServerName www.example.com
+    #ServerAlias www.example.com
 
     DocumentRoot /var/www/html
  
@@ -24,12 +24,6 @@ echo "<VirtualHost *:80>
         SetHandler \"proxy:unix:/var/run/php/php7.4-fpm.sock|fcgi://localhost\"
     </FilesMatch>
 
-   # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-   # error, crit, alert, emerg.
-   # It is also possible to configure the loglevel for particular
-   # modules, e.g.
-   #LogLevel info ssl:warn
-   
     ErrorLog \${APACHE_LOG_DIR}/error.log
     CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
