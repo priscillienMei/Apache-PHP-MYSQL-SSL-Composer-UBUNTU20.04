@@ -1,11 +1,16 @@
 #!/bin/sh
 
 sudo apt update 
-sudo apt install apache2 libapache2-mod-fcgid software-properties-common python3-certbot-apache -y
+sudo apt install apache2 libapache2-mod-fcgid software-properties-common python3-certbot-apache unzip curl -y
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
-sudo apt install php7.4 php7.4-fpm -y
+sudo apt install php7.4 php7.4-fpm php7.4-intl libapache2-mod-php7.4 php7.4-mysql php7.4-curl php7.4-xml php7.4-mcrypt php7.4-imagick -y
 sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite 
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+HASH=`curl -sS https://composer.github.io/installer.sig`
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 echo "<VirtualHost *:80>
     #ServerName www.example.com
@@ -30,4 +35,3 @@ echo "<VirtualHost *:80>
 " > /etc/apache2/sites-available/000-default.conf
 
 service apache2 restart
-
