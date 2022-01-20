@@ -12,7 +12,7 @@ while true; do
     case $php in
         [7.4]* ) sudo apt install php7.4 php7.4-fpm php7.4-intl libapache2-mod-php7.4 php7.4-mysql php7.4-curl php7.4-xml php7.4-mcrypt php7.4-imagick libapache2-mod-php7.4 php7.4-mysql -y;  break;;
         [8]* ) sudo apt install php8 php8-fpm php8-intl libapache2-mod-php8 php8-mysql php8-curl php8-xml php8-mcrypt php8-imagick libapache2-mod-php8 php8-mysql-y; break;;
-        * ) echo "Please answer 7/7.4 or 8";;
+        * ) echo "Please answer 7.4 or 8";;
     esac
 done
 
@@ -79,7 +79,7 @@ echo "<VirtualHost *:80>
  
     <FilesMatch \.php$>
         # 2.4.10+ can proxy to unix socket
-        SetHandler \"proxy:unix:/var/run/php/php7.4-fpm.sock|fcgi://localhost\"
+        SetHandler \"proxy:unix:/var/run/php/php$php-fpm.sock|fcgi://localhost\"
     </FilesMatch>
 
     ErrorLog \${APACHE_LOG_DIR}/error.log
