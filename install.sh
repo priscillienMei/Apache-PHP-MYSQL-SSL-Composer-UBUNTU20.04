@@ -81,9 +81,10 @@ echo "<VirtualHost *:80>
         # 2.4.10+ can proxy to unix socket
         SetHandler \"proxy:unix:/var/run/php/php$php-fpm.sock|fcgi://localhost\"
     </FilesMatch>
-
+ 
     ErrorLog \${APACHE_LOG_DIR}/error.log
     CustomLog \${APACHE_LOG_DIR}/access.log combined
+     
 </VirtualHost>
 " > /etc/apache2/sites-available/000-default.conf
 
