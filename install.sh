@@ -6,7 +6,6 @@ sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
 sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite 
 
-
 #PHP VERSION CHOICE
 while true; do
     read -p "please choose php version you want to install (7.4 or 8) ? " php
@@ -38,6 +37,34 @@ while true; do
     esac
 done
 
+# Secure MYSQL ?
+while true; do
+    read -p "Do you wish to secure mysql? " mysql
+    case $mysql in
+        [Yy]* ) 
+                read -s -p "New Password: " password; echo ; read -s -p "New Password (again): " password2; echo;
+                while [ "$password" != "$password2" ];
+                    do
+                        echo 
+                        echo "Please try again"
+                        read -s -p "Password: " password
+                        echo
+                        read -s -p "Password (again): " password2
+                        echo
+                        mysql -e "UPDATE mysql.user SET Password = PASSWORD('$password') WHERE User = 'root'"
+                        mysql -e "DROP USER ''@'localhost'"
+                        mysql -e "DROP USER ''@'$(hostname)'"
+                        mysql -e "DROP DATABASE test"
+                        mysql -e "FLUSH PRIVILEGES"
+                  done;
+break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes/Y/y or no/N/n.";;
+    esac
+done
+
+#Add php support
+echo "Add php support on default Virtualhost"
 echo "<VirtualHost *:80>
     #ServerName www.example.com
     #ServerAlias www.example.com
