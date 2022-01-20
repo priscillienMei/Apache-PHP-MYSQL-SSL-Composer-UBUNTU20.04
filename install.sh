@@ -10,8 +10,8 @@ sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite
 while true; do
     read -p "please choose php version you want to install (7.4 or 8) ? " php
     case $php in
-        [7.4]* ) sudo apt install php7.4 php7.4-fpm php7.4-intl libapache2-mod-php7.4 php7.4-mysql php7.4-curl php7.4-xml php7.4-mcrypt php7.4-imagick libapache2-mod-php7.4 php7.4-mysql -y;  break;;
-        [8]* ) sudo apt install php8 php8-fpm php8-intl libapache2-mod-php8 php8-mysql php8-curl php8-xml php8-mcrypt php8-imagick libapache2-mod-php8 php8-mysql-y; break;;
+        [7.4]* ) sudo apt install php7.4 php7.4-fpm php7.4-intl libapache2-mod-php7.4 php7.4-mysql php7.4-curl php7.4-xml php7.4-mcrypt php7.4-imagick php7.4-gd libapache2-mod-php7.4 php7.4-mysql -y;  break;;
+        [8]* ) sudo apt install php8 php8-fpm php8-intl libapache2-mod-php8 php8-mysql php8-curl php8-xml php8-mcrypt php8-imagick php8-gd libapache2-mod-php8 php8-mysql-y; break;;
         * ) echo "Please answer 7.4 or 8";;
     esac
 done
