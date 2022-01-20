@@ -68,7 +68,7 @@ echo "Add php support on default Virtualhost"
 echo "<VirtualHost *:80>
     #ServerName www.example.com
     #ServerAlias www.example.com
-
+ 
     DocumentRoot /var/www/html
  
     <Directory /var/www/html>
