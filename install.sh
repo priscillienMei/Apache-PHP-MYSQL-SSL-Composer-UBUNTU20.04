@@ -1,10 +1,10 @@
 #!/bin/sh
 
-sudo apt update 
+sudo apt update
 sudo apt install apache2 libapache2-mod-fcgid software-properties-common python3-certbot-apache unzip curl -y
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
-sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite 
+sudo a2enmod actions fcgid alias proxy_fcgi ssl rewrite
 
 #PHP VERSION CHOICE
 while true; do
@@ -41,11 +41,11 @@ done
 while true; do
     read -p "Do you wish to secure mysql? " mysql
     case $mysql in
-        [Yy]* ) 
+        [Yy]* )
                 read -s -p "New Password: " password; echo ; read -s -p "New Password (again): " password2; echo;
                 while [ "$password" != "$password2" ];
                     do
-                        echo 
+                        echo
                         echo "Please try again"
                         read -s -p "Password: " password
                         echo
@@ -63,29 +63,38 @@ break;;
     esac
 done
 
-#Add php support
+# EDIT DEFAULT VHOST
+while true; do
+    read -p "Do you wish to add php to default vhost? " dvhost
+    case $dvhost in
+        [Yy]* )
 echo "Add php support on default Virtualhost"
 echo "<VirtualHost *:80>
     #ServerName www.example.com
     #ServerAlias www.example.com
- 
+
     DocumentRoot /var/www/html
- 
+
     <Directory /var/www/html>
         Options -Indexes +FollowSymLinks +MultiViews
         AllowOverride All
         Require all granted
     </Directory>
- 
+
     <FilesMatch \.php$>
         # 2.4.10+ can proxy to unix socket
         SetHandler \"proxy:unix:/var/run/php/php$php-fpm.sock|fcgi://localhost\"
     </FilesMatch>
- 
+
     ErrorLog \${APACHE_LOG_DIR}/error.log
     CustomLog \${APACHE_LOG_DIR}/access.log combined
-     
+
 </VirtualHost>
 " > /etc/apache2/sites-available/000-default.conf
+break;;
+       [Nn]* ) break;;
+       * ) echo "Please answer yes/Y/y or no/N/n.";;
+   esac
+done
 
 service apache2 restart
